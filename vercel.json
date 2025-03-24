@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "buildCommand": "cd backend && pnpm install --no-frozen-lockfile && pnpm bundle:esbuild",
+  "installCommand": "npm install -g pnpm && cd backend && pnpm install --no-frozen-lockfile",
+  "outputDirectory": "backend/dist",
+  "builds": [
+    {
+      "src": "backend/dist/sub-store.bundle.js",
+      "use": "@vercel/node",
+      "config": {
+        "nodeVersion": "20.x",
+        "maxDuration": 10,
+        "memory": 1024
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/dist/sub-store.bundle.js"
+    }
+  ]
+}
